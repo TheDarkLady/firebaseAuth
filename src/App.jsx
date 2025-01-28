@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route, BrowserRouter } from 'react-router-dom';
 import Login from './component/Login';
 import SignUp from './component/SignUp';
-
+import { ToastContainer, toast } from 'react-toastify';
 function App() {
   return (
     <>
@@ -13,6 +13,7 @@ function App() {
         <Route path="/register" element={<SignUp />} />
       </Routes>
     </Router>
+    <ToastContainer />
     </>
   );
 }

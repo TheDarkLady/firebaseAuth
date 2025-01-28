@@ -53,7 +53,6 @@ function Login() {
           </div>
           {/* Login with google */}
 
-
         </div>
 
       </div>
