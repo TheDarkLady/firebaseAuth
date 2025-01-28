@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Form, useNavigate } from 'react-router-dom'
-import { Link, Navigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -43,16 +43,11 @@ function Login() {
                 )
               })
             }
-            {/* <div className='w-full flex flex-col justify-center items-start gap-2 pb-5'>
-              <label> Password </label>
-              <input type="password" value={password} className='w-full border border-rounded' onChange={(e) => setPassword(e.target.value)} />
-            </div> */}
-            <div className='w-full flex flex-row justify-center items-center'>
+            <div className='w-full flex flex-row justify-center items-center pb-2'>
               <button className='px-3 py-2 bg-sky-500 text-white border rounded-lg'>Login</button>
             </div>
-            <div className='w-full flex flex-row justify-end items-center'>
-              <p>New User 
-                <Link to="/register"> Register </Link>
+            <div className='w-full flex flex-row justify-end items-center pb-2'>
+              <p>New User  <Link to="/register" className='text-blue-500 underline'>Register</Link>
               </p>
             </div>
           </div>
