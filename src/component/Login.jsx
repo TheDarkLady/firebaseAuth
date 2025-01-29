@@ -1,10 +1,49 @@
+import { signInWithCredential } from 'firebase/auth';
 import React, { useState } from 'react'
 import { Form, useNavigate } from 'react-router-dom'
 import { Link } from 'react-router-dom'
+import { auth } from './Firebase';
+import {signInWithEmailAndPassword} from 'firebase/auth';
+import { ToastContainer , toast, Bounce } from 'react-toastify';
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+
+  const handleSubmit = async(e) => {
+    e.preventDefault();
+    try{
+      await signInWithEmailAndPassword(auth, email, password);
+      console.log("user logged in successfully")
+      navigate('/profile')
+      toast.success('login Successfully', {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+        });
+    }
+    catch (error){
+      console.error("Error logging in:", error.message);
+      toast.error(error.message, {
+        position: "bottom-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+        });
+    }
+  }
 
   let inputFields = [
     {
@@ -23,6 +62,8 @@ function Login() {
     },
   ]
 
+  
+
   return (
     <>
       <div className='w-full h-screen flex flex-col justify-center items-center p-10'>
@@ -32,7 +73,7 @@ function Login() {
             <h1 className='text-2xl font-bold'>FireBase Login  </h1>
           </div>
           {/* Login Form */}
-          <div className='w-full'>
+          <form onSubmit={handleSubmit} className='w-full'>
             {
               inputFields.map((input) => {
                 return (
@@ -50,7 +91,8 @@ function Login() {
               <p>New User  <Link to="/register" className='text-blue-500 underline'>Register</Link>
               </p>
             </div>
-          </div>
+          </form>
+          <ToastContainer />
           {/* Login with google */}
 
         </div>
