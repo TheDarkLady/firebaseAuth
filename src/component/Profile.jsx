@@ -22,9 +22,9 @@ function Profile() {
             }
         })
     }
-    
+
     async function handleLogout() {
-        try{
+        try {
             await auth.signOut();
             navigate("/")
             toast.success('Loged Out Successfully', {
@@ -39,10 +39,10 @@ function Profile() {
                 transition: Bounce,
             });
         }
-        catch (error){
+        catch (error) {
             console.log("Error Logging out : ", error.message);
         }
-        
+
     }
 
     useEffect(() => {
@@ -66,31 +66,39 @@ function Profile() {
                     {/* User Details */}
                     <div className='w-full'>
                         {userDetails ? (
-                            // userDetails.map((userDetail) => {
-
-                            // })
-                            <>
-                                <div className='flex flex-col justify-center items-start gap-2'>
-                                    <p> First Name : {userDetails.firstName}</p>
-                                    <p> Last Name : {userDetails.lastName}</p>
-                                    <p> Email : {userDetails.email}</p>
-                                </div>
-                                <div className='flex flex-col justify-center items-center mt-5'>
-                                    <button className='px-3 py-2 bg-sky-500 text-white border rounded-lg' onClick={handleLogout}> Logout</button>
-                                </div>
-                            </>
-
+                            (() => {
+                                const userDetail = []
+                                Object.keys(userDetails).forEach((key) => {
+                                    userDetail.push(<p key={key}> {key} : {userDetails[key]}</p>)
+                                });
+                                console.log("userDetail : ", userDetail);
+                                
+                                return (
+                                    <div>
+                                        {/* user Details */}
+                                        <div className='flex flex-col justify-center items-start gap-2'>
+                                            {userDetail}
+                                        </div>
+                                        {/* Logout Button */}
+                                        <div className='flex flex-col justify-center items-center mt-5'>
+                                            <button className='px-3 py-2 bg-sky-500 text-white border rounded-lg' onClick={handleLogout}>
+                                                Logout
+                                            </button>
+                                        </div>
+                                    </div>
+                                )
+                            })()
                         ) : (
-                            <p> </p>
-                        )
+                            <p></p>
+                            )
                         }
                     </div>
                     {/* <ToastContainer /> */}
                     {/* Login with google */}
 
-                </div>
+                </div >
 
-            </div>
+            </div >
         </>
     )
 }
