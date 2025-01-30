@@ -24,7 +24,8 @@ function SignUp() {
           firstName: firstName,
           lastName : lastName,
           email: user.email,
-          password : password 
+          password : password,
+          photo :  ""
         });
       }
 

@@ -8,7 +8,8 @@ function Profile() {
     const navigate = useNavigate();
     const fetchUserData = async () => {
         auth.onAuthStateChanged(async (user) => {
-            console.log(user);
+            console.log("User",user);
+            // setUserDetails(user)
             const docRef = doc(db, "Users", user.uid);
             const docSnap = await getDoc(docRef);
             if (docSnap.exists()) {
@@ -57,7 +58,8 @@ function Profile() {
                     <div className='w-full flex flex-col justify-center items-center'>
                         {userDetails ? (
 
-                            <h1 className='text-2xl font-bold'>Welcome {userDetails.firstName}</h1>
+                            // <h1 className='text-2xl font-bold'>Welcome {userDetails.displayName}</h1>
+                            <img src={userDetails.photo} alt="profile pic" />
                         ) : (
                             <h1 className='text-2xl font-bold'> Loading .............</h1>
                         )
@@ -66,18 +68,11 @@ function Profile() {
                     {/* User Details */}
                     <div className='w-full'>
                         {userDetails ? (
-                            (() => {
-                                const userDetail = []
-                                Object.keys(userDetails).forEach((key) => {
-                                    userDetail.push(<p key={key}> {key} : {userDetails[key]}</p>)
-                                });
-                                console.log("userDetail : ", userDetail);
-                                
-                                return (
                                     <div>
                                         {/* user Details */}
-                                        <div className='flex flex-col justify-center items-start gap-2'>
-                                            {userDetail}
+                                        <div className='flex flex-col justify-center items-center gap-2'>
+                                            <h1 className='text-2xl font-bold' >Welcome {userDetails.firstName}</h1>
+                                            <p>Email : {userDetails.email}</p>
                                         </div>
                                         {/* Logout Button */}
                                         <div className='flex flex-col justify-center items-center mt-5'>
@@ -86,8 +81,6 @@ function Profile() {
                                             </button>
                                         </div>
                                     </div>
-                                )
-                            })()
                         ) : (
                             <p></p>
                             )
